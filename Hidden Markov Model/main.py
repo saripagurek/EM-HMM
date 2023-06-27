@@ -42,6 +42,13 @@ line2_x = []
 line2_y = []
 for h in range(len(p)):
     hidden_state = p[h]
+    p1 = hidden_state[0]
+    p2 = hidden_state[1]
+    line1_x.append(trial)
+    line1_y.append(p1)
+    line2_x.append(trial)
+    line2_y.append(p2)
+    '''
     if hidden_state[0] > hidden_state[1]:
         most_likely = hidden_state[0]
         col = "blue"
@@ -52,9 +59,10 @@ for h in range(len(p)):
         col = "red"
         line2_x.append(trial)
         line2_y.append(most_likely)
-    point = [trial, most_likely]
-    print("point")
-    print(point)
+    '''
+    #point = [trial, most_likely]
+    #print("point")
+    #print(point)
     counter += 1
     if sequence_index < len(len_sequences) - 1:
         if counter > len_sequences[sequence_index]:
