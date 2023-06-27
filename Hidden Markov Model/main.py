@@ -1,24 +1,29 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from hmmlearn import hmm
+import preprocess
+
+
+#set up data from csv
+setup = preprocess.setup("input-data/test-input.csv")
 
 n_states = 2
+data = setup[0]
+len_sequences = setup[1]
 
+
+'''
 #example, 2 fixations in correct exploit state
 test1 = [0, 1, 0, 0, 1, 0, 0, 1, 0]
 test2 = [1, 0, 0, 1, 0, 0, 1, 0, 0]
-
 data = []
-
 for i in range(5):
     data.append(test1)
 for j in range(7):
     data.append(test2)
 for i in range(5):
     data.append(test1)
-
-len_sequences = [5, 7, 5]
+'''
 
 model = hmm.CategoricalHMM(n_components=n_states)
 model.fit(data, len_sequences)
