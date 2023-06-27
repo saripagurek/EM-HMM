@@ -66,7 +66,7 @@ plt.plot(line2_x, line2_y, marker="o", markersize=5, markerfacecolor="red")
 plt.xlabel('Trial #')
 plt.ylabel('p(state)')
 plt.title("Exploit or Explore")
-plt.legend()
+#plt.legend()
 plt.show()
 
 
