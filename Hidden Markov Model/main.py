@@ -1,32 +1,71 @@
-# import the necessary libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from hmmlearn import hmm
 
-# Define the state space
-states = ["Sunny", "Rainy"]
-n_states = len(states)
-print('Number of hidden states :',n_states)
-# Define the observation space
-observations = ["Dry", "Wet"]
-n_observations = len(observations)
-print('Number of observations  :',n_observations)
+n_states = 2
 
-# Define the initial state distribution
-state_probability = np.array([0.6, 0.4])
-print("State probability: ", state_probability)
+#example, 2 fixations in correct exploit state
+test1 = [0, 1, 0, 0, 1, 0, 0, 1, 0]
+test2 = [1, 0, 0, 1, 0, 0, 1, 0, 0]
 
-# Define the state transition probabilities
-transition_probability = np.array([[0.7, 0.3],
-                                   [0.3, 0.7]])
-print("\nTransition probability:\n", transition_probability)
-# Define the observation likelihoods
-emission_probability = np.array([[0.9, 0.1],
-                                 [0.2, 0.8]])
-print("\nEmission probability:\n", emission_probability)
+data = []
+
+for i in range(5):
+    data.append(test1)
+for j in range(7):
+    data.append(test2)
+for i in range(5):
+    data.append(test1)
+
+len_sequences = [5, 7, 5]
 
 model = hmm.CategoricalHMM(n_components=n_states)
+model.fit(data, len_sequences)
+
+p = model.predict_proba(data, len_sequences)
+
+print(p)
+
+sns.set_style("whitegrid")
+counter = 0
+sequence_index = 0
+trial = 1
+line1_x = []
+line1_y = []
+line2_x = []
+line2_y = []
+for h in range(len(p)):
+    hidden_state = p[h]
+    if hidden_state[0] > hidden_state[1]:
+        most_likely = hidden_state[0]
+        col = "blue"
+        line1_x.append(trial)
+        line1_y.append(most_likely)
+    else:
+        most_likely = hidden_state[1]
+        col = "red"
+        line2_x.append(trial)
+        line2_y.append(most_likely)
+    point = [trial, most_likely]
+    print("point")
+    print(point)
+    counter += 1
+    if sequence_index < len(len_sequences) - 1:
+        if counter > len_sequences[sequence_index]:
+            counter = 0
+            sequence_index += 1
+            trial += 1
+plt.plot(line1_x, line1_y, marker="o", markersize=5, markerfacecolor="blue")
+plt.plot(line2_x, line2_y, marker="o", markersize=5, markerfacecolor="red")
+plt.xlabel('Trial #')
+plt.ylabel('p(state)')
+plt.title("Exploit or Explore")
+plt.legend()
+plt.show()
+
+
+'''
 model.startprob_ = state_probability
 model.transmat_ = transition_probability
 model.emissionprob_ = emission_probability
@@ -45,12 +84,5 @@ log_probability, hidden_states = model.decode(observations_sequence,
 
 print('Log Probability :', log_probability)
 print("Most likely hidden states:", hidden_states)
+'''
 
-# Plot the results
-sns.set_style("whitegrid")
-plt.plot(hidden_states, '-o', label="Hidden State")
-plt.xlabel('Time step')
-plt.ylabel('Most Likely Hidden State')
-plt.title("Sunny or Rainy")
-plt.legend()
-plt.show()
