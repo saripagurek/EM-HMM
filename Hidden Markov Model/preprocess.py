@@ -1,7 +1,7 @@
 import csv
 
 
-def setup(file_path):
+def setup(file_path, s_width, s_height, x_sections, y_sections):
     data = []
     len_seq = []
     targets_real = []
@@ -39,7 +39,7 @@ def setup(file_path):
         len_seq.append(len_trial - 1)
     print(len_seq)
 
-    input = bin(data, targets_real, targets_expected, 900, 900, 2, 2)
+    input = bin(data, targets_real, targets_expected, s_width, s_height, x_sections, y_sections)
     print("total samples: " + str(len(input)))
     sum = 0
     for a in len_seq:

@@ -4,8 +4,13 @@ from hmmlearn import hmm
 import preprocess
 
 
+screen_width = 900
+screen_height = 900
+num_rows = 3
+num_cols = 1
+
 #set up data from csv
-setup = preprocess.setup("input-data/test-input.csv")
+setup = preprocess.setup("input-data/test-input.csv", screen_width, screen_height, num_rows, num_cols)
 
 n_states = 2
 data = setup[0]
