@@ -4,13 +4,15 @@ from hmmlearn import hmm
 import preprocess
 
 
+input_file = "hmm_exploit&explore_ID3.csv"
+path = "input-data/" + input_file
 screen_width = 900
 screen_height = 900
 num_rows = 3
 num_cols = 1
 
 #set up data from csv
-setup = preprocess.setup("input-data/test-input.csv", screen_width, screen_height, num_rows, num_cols)
+setup = preprocess.setup(path, screen_width, screen_height, num_rows, num_cols)
 
 n_states = 2
 data = setup[0]
@@ -78,7 +80,8 @@ plt.plot(line1_x, line1_y, marker="o", markersize=5, markerfacecolor="blue")
 plt.plot(line2_x, line2_y, marker="o", markersize=5, markerfacecolor="red")
 plt.xlabel('Trial #')
 plt.ylabel('p(state)')
-plt.title("Exploit or Explore")
+title = "Exploit or Explore\n" + input_file[:-4]
+plt.title(title)
 #plt.legend()
 plt.show()
 

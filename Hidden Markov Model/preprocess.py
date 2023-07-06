@@ -14,6 +14,7 @@ def setup(file_path, s_width, s_height, x_sections, y_sections):
         len_trial = 1
         for i in range(1, num_rows):
             row = datareader[i]
+            print(row[0])
             trial = int(row[0])
             x = float(row[1])
             y = float(row[2])
