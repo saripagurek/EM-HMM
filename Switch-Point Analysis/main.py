@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import ruptures as rpt
+import rpt_rewrite
 
 '''
 # generate signal
@@ -9,7 +10,8 @@ n_bkps = 4  # number of breakpoints
 signal, bkps = rpt.pw_constant(n_samples, dim, n_bkps, noise_std=sigma)
 '''
 
-data = pd.read_csv('data.csv', usecols=['Trial', 'Fix_X', 'Fix_Y', 'SceneFix'], nrows = 500)
+#data = pd.read_csv('data.csv', usecols=['Trial', 'Fix_X', 'Fix_Y', 'SceneFix'], nrows = 500)
+data = pd.read_csv('data_exploit.csv', usecols=['Trial', 'Fix_X', 'Fix_Y', 'SceneFix'])
 data.set_index("Trial", inplace=True)
 data = data.sort_index()
 
@@ -21,6 +23,6 @@ algo = rpt.Pelt(model="l2", min_size=28)
 algo.fit(test)
 result = algo.predict(pen=1)
 
-rpt.display(test, result, result)
+rpt_rewrite.display(test, result, result)
 plt.xlabel("Fixation #")
 plt.show()
