@@ -4,7 +4,7 @@ import csv
 rows=[["Item", "Fixation", "Con Target Region", "Incon Target Region"]]
 
 
-originalData = pd.read_csv('original.csv', usecols=['ItemNum', 'Fix_X', 'Fix_Y'])
+originalData = pd.read_csv('original_clean.csv', usecols=['ItemNum', 'Fix_X', 'Fix_Y'])
 regionData = pd.read_csv('regions.csv', usecols=['Item', 'Y1', 'Y2'])
 
 regionData.set_index("Item", inplace=True)
@@ -24,7 +24,7 @@ def bin(bound_y1, bound_y2, test):
     else:
         return "Lower"
 
-
+print(originalData)
 for index, row in originalData.iterrows():
     #if index < 10:
     item = int(row["ItemNum"])
@@ -54,4 +54,8 @@ with open('output.csv', 'w', newline='') as file:
     writer.writerows(rows)
 
 
+calcData = pd.read_csv('output.csv', usecols=["Fixation", "Con Target Region", "Incon Target Region"])
+fullData = pd.read_csv('original_clean.csv')
 
+result =fullData.join(calcData, lsuffix="_left", rsuffix="_right")
+result.to_csv('final.csv', index=False)
