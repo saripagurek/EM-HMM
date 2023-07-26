@@ -69,8 +69,8 @@ def display(signal, true_chg_pts, computed_chg_pts=None, **kwargs):
                         facecolor=col, alpha=alpha)
 
         color = "k"  # color of the lines indicating the computed_chg_pts
-        linewidth = 3  # linewidth of the lines indicating the computed_chg_pts
-        linestyle = "--"  # linestyle of the lines indicating the computed_chg_pts
+        linewidth = 1  # linewidth of the lines indicating the computed_chg_pts
+        linestyle = "-"  # linestyle of the lines indicating the computed_chg_pts
         # vertical lines to mark the computed_chg_pts
         if computed_chg_pts is not None:
             for bkp in computed_chg_pts:
